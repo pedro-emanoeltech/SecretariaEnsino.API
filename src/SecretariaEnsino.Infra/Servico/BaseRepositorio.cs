@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using SecretariaEnsino.Domain.Abastacao;
 using SecretariaEnsino.Infra.Contexto;
 using SecretariaEnsino.Infra.Interface;
@@ -92,57 +91,29 @@ namespace SecretariaEnsino.Infra.Servico
             }
         }
 
-        public virtual async Task<TEntidade?> BuscarPorFiltro(Expression<Func<TEntidade, bool>> filtro = null, Func<IQueryable<TEntidade>, IIncludableQueryable<TEntidade, object>>? incluir = null)
-        {
-            try
-            {
-                IQueryable<TEntidade> queryable = _dbSet;
-                if (incluir != null)
-                {
-                    queryable = incluir(queryable);
-                }
-
-                if (filtro != null)
-                {
-                    queryable = queryable.Where(filtro);
-                }
-
-                return await _dbSet.FirstOrDefaultAsync();
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-        public virtual async Task<IEnumerable<TEntidade>?> BuscarTodosPorFiltro(Expression<Func<TEntidade, bool>>? predicate = null, Expression<Func<TEntidade, object>>? orderBy = null)
+        public virtual async Task<IQueryable<TEntidade>> BuscarTodosPorFiltro(Expression<Func<TEntidade, bool>>? filtro = null, Expression<Func<TEntidade, object>>? ordernar = null)
         {
             try
             {
                 IQueryable<TEntidade> query = _dbSet;
- 
-                if (predicate != null)
+
+                if (filtro != null)
                 {
-                    query = query.Where(predicate);
+                    query = query.Where(filtro);
                 }
 
-                if (orderBy != null)
+                if (ordernar != null)
                 {
-                    query = query.OrderBy(orderBy);
+                    query = query.OrderBy(ordernar);
                 }
 
-                return await query.ToListAsync();
+                return query;
 
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-        }
- 
-        public virtual async Task<IQueryable<TEntidade>> ObterDataSet()
-        {
-            return _dbSet;
         }
 
     }

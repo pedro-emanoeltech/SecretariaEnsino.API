@@ -12,7 +12,7 @@ namespace SecretariaEnsino.Domain.Entidades
         /// Id do aluno matriculado.
         /// </summary>
         public Guid AlunoId { get; set; }
- 
+
         /// <summary>
         /// Id da turma vinculada.
         /// </summary>
@@ -21,12 +21,12 @@ namespace SecretariaEnsino.Domain.Entidades
         /// <summary>
         /// Data em que a matrícula foi realizada.
         /// </summary>
-        public DateTime DataMatricula { get; set; } = DateTime.UtcNow;
+        public DateTime DataMatricula { get; set; }
 
         /// <summary>
         /// Status da matrícula (Ativa, Trancada, Concluída, Expirou).
         /// </summary>
-        public StatusMatricula Status { get; set; } 
+        public StatusMatricula Status { get; set; }
 
         /// <summary>
         /// Nota ou média final do aluno na turma.
@@ -36,17 +36,17 @@ namespace SecretariaEnsino.Domain.Entidades
         /// <summary>
         /// Indica se o certificado foi emitido.
         /// </summary>
-        public bool CertificadoEmitido { get; set; } = false;
+        public bool CertificadoEmitido { get; set; }
 
         /// <summary>
         /// Turma relacionada à matrícula.
         /// </summary>
-        public Turma Turma { get; set; } = null!;
+        public Turma Turma { get; set; }
 
         /// <summary>
         /// Aluno relacionado à matrícula.
         /// </summary>
-        public Aluno Aluno { get; set; } = null!;
+        public Aluno Aluno { get; set; }
 
     }
 }
