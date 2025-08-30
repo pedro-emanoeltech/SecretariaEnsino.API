@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
-using SecretariaEnsino.Domain.Abastacao;
+﻿using SecretariaEnsino.Domain.Abastacao;
 using System.Linq.Expressions;
 
 

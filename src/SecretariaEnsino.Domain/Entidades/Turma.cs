@@ -11,7 +11,7 @@ namespace SecretariaEnsino.Domain.Entidades
         /// <summary>
         /// Nome da turma.
         /// </summary>
-        public string Nome { get; set; } = null!;
+        public string Nome { get; set; }
 
         /// <summary>
         /// Descrição da turma.
