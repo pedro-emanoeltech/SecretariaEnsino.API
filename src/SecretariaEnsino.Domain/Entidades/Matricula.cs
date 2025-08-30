@@ -11,12 +11,12 @@ namespace SecretariaEnsino.Domain.Entidades
         /// <summary>
         /// Id do aluno matriculado.
         /// </summary>
-        public int AlunoId { get; set; }
+        public Guid AlunoId { get; set; }
  
         /// <summary>
         /// Id da turma vinculada.
         /// </summary>
-        public int TurmaId { get; set; }
+        public Guid TurmaId { get; set; }
 
         /// <summary>
         /// Data em que a matrícula foi realizada.

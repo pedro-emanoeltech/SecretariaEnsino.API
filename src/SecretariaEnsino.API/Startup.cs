@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using SecretariaEnsino.API.Configuracao;
+﻿using SecretariaEnsino.API.Configuracao;
 using SecretariaEnsino.Infra.Contexto;
-using System.Reflection;
 
 namespace SecretariaEnsino.API
 {
