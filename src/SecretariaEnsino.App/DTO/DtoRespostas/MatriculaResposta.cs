@@ -11,6 +11,9 @@ namespace SecretariaEnsino.App.DTO.DtoRespostas
         public Guid Id { get; set; }
         public Guid AlunoId { get; set; }
         public Guid TurmaId { get; set; }
+        public string NomeAluno { get; set; }
+        public string CpfAluno { get; set; }
+        public string NomeTurma { get; set; }
         public DateTime DataMatricula { get; set; }
         public StatusMatricula Status { get; set; }
         public decimal? NotaFinal { get; set; }

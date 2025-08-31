@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 using SecretariaEnsino.App.Filtro;
 using SecretariaEnsino.App.Interface;
 using SecretariaEnsino.Domain.Abastacao;
@@ -25,54 +24,70 @@ namespace SecretariaEnsino.App.Servico
             _validator = validator;
         }
 
-        public virtual async Task<TDtoResposta> Adicionar(TDtoRequisicao dtoRequisicao)
+        /// <summary>
+        /// metodo call antes de Adicionar aplicar validação ou modificação na entidade.
+        /// </summary>
+        /// <param name="entidade"></param>
+        protected virtual async Task AntesDeAdicionarAsync(TEntidade entidade) => await Task.CompletedTask;
+
+        /// <summary>
+        /// metodo call antes de Atualizar aplicar validação ou modificação na entidade.
+        /// </summary>
+        /// <param name="entidade"></param>
+        protected virtual async Task AntesDeAtualizarAsync(Guid id, TEntidade entidade) => await Task.CompletedTask;
+
+        public virtual async Task<TDtoResposta> AdicionarAsync(TDtoRequisicao dtoRequisicao)
         {
             var resultadoValidacao = await _validator.ValidateAsync(dtoRequisicao);
             if (!resultadoValidacao.IsValid)
                 throw new ValidationException(string.Join("; ", resultadoValidacao.Errors.Select(e => e.ErrorMessage)));
 
             var entidade = _mapper.Map<TEntidade>(dtoRequisicao);
-            await _repositorio.Adicionar(entidade);
+
+            await AntesDeAdicionarAsync(entidade);
+            await _repositorio.AdicionarAsync(entidade);
 
             return _mapper.Map<TDtoResposta>(entidade);
         }
 
-        public virtual async Task<TDtoResposta> Atualizar(Guid id, TDtoRequisicao dtoRequisicao)
+        public virtual async Task<TDtoResposta> AtualizarAsync(Guid id, TDtoRequisicao dtoRequisicao)
         {
             var resultadoValidacao = await _validator.ValidateAsync(dtoRequisicao);
             if (!resultadoValidacao.IsValid)
                 throw new ValidationException(string.Join("; ", resultadoValidacao.Errors.Select(e => e.ErrorMessage)));
 
-            var entidade = await _repositorio.BuscarPorId(id) ?? throw new NotFoundException("Registro não encontrado");
+            var entidade = await _repositorio.BuscarPorIdAsync(id) ?? throw new NotFoundException("Registro não encontrado");
 
             _mapper.Map(dtoRequisicao, entidade);
-            await _repositorio.Atualizar(entidade);
+
+            await AntesDeAtualizarAsync(id, entidade);
+            await _repositorio.AtualizarAsync(entidade);
 
             return _mapper.Map<TDtoResposta>(entidade);
         }
 
-        public virtual async Task<TDtoResposta> BuscarPorId(Guid id)
+        public virtual async Task<TDtoResposta> BuscarPorIdAsync(Guid id)
         {
-            var entidade = await _repositorio.BuscarPorId(id) ?? throw new NotFoundException("Registro não encontrado");
+            var entidade = await _repositorio.BuscarPorIdAsync(id) ?? throw new NotFoundException("Registro não encontrado");
             return _mapper.Map<TDtoResposta>(entidade);
         }
 
         public virtual async Task<bool> Deletar(Guid id)
         {
-            await _repositorio.Deletar(id);
+            await _repositorio.DeletarAsync(id);
             return true;
         }
 
-        public virtual async Task<IEnumerable<TDtoResposta>> BuscarTodos()
+        public virtual async Task<IEnumerable<TDtoResposta>> BuscarTodosAsync()
         {
-            var registros = await _repositorio.BuscarTodosPorFiltro();
+            var registros = await _repositorio.BuscarTodosPorFiltroAsync();
             return _mapper.ProjectTo<TDtoResposta>(registros);
         }
 
-        public virtual async Task<IQueryable<TDtoResposta>> BuscarPorFiltro<TBuilderFiltro>(IBaseFiltro<TEntidade> builderFiltro = null)
+        public virtual async Task<IQueryable<TDtoResposta>> BuscarPorFiltroAsync<TBuilderFiltro>(IBaseFiltro<TEntidade> builderFiltro = null)
          where TBuilderFiltro : class, IBaseFiltro<TEntidade>
         {
-            var query = await _repositorio.BuscarTodosPorFiltro();
+            var query = await _repositorio.BuscarTodosPorFiltroAsync();
 
             if (builderFiltro != null)
             {

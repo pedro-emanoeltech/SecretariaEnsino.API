@@ -54,11 +54,6 @@ namespace SecretariaEnsino.App.Servico
             string emailPattern = @"^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b$";
             return Regex.IsMatch(email!, emailPattern);
         }
-
-        private string ConveterSenhaHash(string senha)
-        {
-            string hashedPassword = BC.HashPassword(senha, BC.GenerateSalt());
-            return hashedPassword;
-        }
+ 
     }
 }

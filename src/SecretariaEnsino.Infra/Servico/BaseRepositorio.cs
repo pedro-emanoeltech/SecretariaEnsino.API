@@ -21,7 +21,7 @@ namespace SecretariaEnsino.Infra.Servico
             _dbSet = context.Set<TEntidade>();
         }
 
-        public virtual async Task<TEntidade> Adicionar(TEntidade entidade, bool saveChanges = true)
+        public virtual async Task<TEntidade> AdicionarAsync(TEntidade entidade, bool saveChanges = true)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace SecretariaEnsino.Infra.Servico
             }
         }
 
-        public virtual async Task<TEntidade> Atualizar(TEntidade entidade, bool saveChanges = true)
+        public virtual async Task<TEntidade> AtualizarAsync(TEntidade entidade, bool saveChanges = true)
         {
             try
             {
@@ -57,11 +57,11 @@ namespace SecretariaEnsino.Infra.Servico
             }
         }
 
-        public virtual async Task<bool> Deletar(Guid id)
+        public virtual async Task<bool> DeletarAsync(Guid id)
         {
             try
             {
-                TEntidade? entidade = await BuscarPorId(id) ?? throw new NotFoundException("Registro não encontrado");
+                TEntidade? entidade = await BuscarPorIdAsync(id) ?? throw new NotFoundException("Registro não encontrado");
       
                 _context.Set<TEntidade>().Remove(entidade);
                 await _context.SaveChangesAsync();
@@ -74,7 +74,7 @@ namespace SecretariaEnsino.Infra.Servico
             }
         }
 
-        public virtual async Task<TEntidade?> BuscarPorId(Guid id)
+        public virtual async Task<TEntidade?> BuscarPorIdAsync(Guid id)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace SecretariaEnsino.Infra.Servico
             }
         }
 
-        public virtual async Task<IQueryable<TEntidade>> BuscarTodosPorFiltro(Expression<Func<TEntidade, bool>>? filtro = null, Expression<Func<TEntidade, object>>? ordernar = null)
+        public virtual async Task<IQueryable<TEntidade>> BuscarTodosPorFiltroAsync(Expression<Func<TEntidade, bool>>? filtro = null, Expression<Func<TEntidade, object>>? ordernar = null)
         {
             try
             {
@@ -113,10 +113,6 @@ namespace SecretariaEnsino.Infra.Servico
                 throw new Exception(e.Message);
             }
         }
-
-        public virtual async Task<IQueryable<TEntidade>> Listar()
-        {
-            return _dbSet;
-        }
+  
     }
 }

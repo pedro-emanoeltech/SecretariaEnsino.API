@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using SecretariaEnsino.Domain.Abastacao;
-using SecretariaEnsino.Domain.Enum;
 
 namespace SecretariaEnsino.App.DTO.DtoRequisicao
 {

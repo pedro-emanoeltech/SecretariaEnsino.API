@@ -21,7 +21,7 @@ namespace SecretariaEnsino.Domain.Entidades
         /// <summary>
         /// Data em que a matrícula foi realizada.
         /// </summary>
-        public DateTime DataMatricula { get; set; }
+        public DateTime DataMatricula { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         /// Status da matrícula (Ativa, Trancada, Concluída, Expirou).

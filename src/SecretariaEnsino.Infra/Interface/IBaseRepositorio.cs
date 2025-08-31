@@ -6,15 +6,15 @@ namespace SecretariaEnsino.Infra.Interface
 {
     public interface IBaseRepositorio<TEntidade> where TEntidade : BaseEntidade, IEntidade
     {
-        Task<TEntidade> Adicionar(TEntidade entidade, bool saveChanges = true);
+        Task<TEntidade> AdicionarAsync(TEntidade entidade, bool saveChanges = true);
 
-        Task<TEntidade> Atualizar(TEntidade entidade, bool saveChanges = true);
+        Task<TEntidade> AtualizarAsync(TEntidade entidade, bool saveChanges = true);
 
-        Task<bool> Deletar(Guid id);
+        Task<bool> DeletarAsync(Guid id);
 
-        Task<TEntidade?> BuscarPorId(Guid id);
+        Task<TEntidade?> BuscarPorIdAsync(Guid id);
  
-        Task<IQueryable<TEntidade>> BuscarTodosPorFiltro(Expression<Func<TEntidade, bool>>? filtro = null, Expression<Func<TEntidade, object>>? ordernar = null);
+        Task<IQueryable<TEntidade>> BuscarTodosPorFiltroAsync(Expression<Func<TEntidade, bool>>? filtro = null, Expression<Func<TEntidade, object>>? ordernar = null);
  
     }
 }

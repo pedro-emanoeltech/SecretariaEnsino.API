@@ -8,12 +8,12 @@ namespace SecretariaEnsino.App.Interface
         where TEntidade : BaseEntidade, IEntidade
         where TDtoRequisicao : IBaseDto
     {
-        Task<TDtoResposta> Adicionar(TDtoRequisicao dtoRequisicao);
-        Task<TDtoResposta> Atualizar(Guid id, TDtoRequisicao dtoRequisicao);
-        Task<TDtoResposta> BuscarPorId(Guid id);
+        Task<TDtoResposta> AdicionarAsync(TDtoRequisicao dtoRequisicao);
+        Task<TDtoResposta> AtualizarAsync(Guid id, TDtoRequisicao dtoRequisicao);
+        Task<TDtoResposta> BuscarPorIdAsync(Guid id);
         Task<bool> Deletar(Guid id);
-        Task<IEnumerable<TDtoResposta>> BuscarTodos();
-        Task<IQueryable<TDtoResposta>> BuscarPorFiltro<TBuilderFiltro>(IBaseFiltro<TEntidade> builderFiltro = null)
+        Task<IEnumerable<TDtoResposta>> BuscarTodosAsync();
+        Task<IQueryable<TDtoResposta>> BuscarPorFiltroAsync<TBuilderFiltro>(IBaseFiltro<TEntidade> builderFiltro = null)
              where TBuilderFiltro : class, IBaseFiltro<TEntidade>;
 
     }

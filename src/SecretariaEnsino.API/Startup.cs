@@ -19,6 +19,7 @@ namespace SecretariaEnsino.API
             services.AddInjecaoDependenciasConfiguracao();
             services.AddControllers();
             services.AddAutoMapperConfiguracao();
+            services.AddHostedService<CriaUsuarioIncialServico>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

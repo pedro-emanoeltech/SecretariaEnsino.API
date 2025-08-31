@@ -31,7 +31,7 @@ namespace SecretariaEnsino.API.Controller
 
             try
             {
-                var resposta = await _servico.Adicionar(requisicao);
+                var resposta = await _servico.AdicionarAsync(requisicao);
                 return Ok(resposta);
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace SecretariaEnsino.API.Controller
 
             try
             {
-                var resposta = await _servico.Atualizar(guidId, requisicao);
+                var resposta = await _servico.AtualizarAsync(guidId, requisicao);
                 if (resposta == null)
                     return NotFound("Registro não encontrado");
 
@@ -84,7 +84,7 @@ namespace SecretariaEnsino.API.Controller
 
             try
             {
-                var resposta = await _servico.BuscarPorId(guidId);
+                var resposta = await _servico.BuscarPorIdAsync(guidId);
                 if (resposta == null)
                     return NotFound("Registro não encontrado");
 

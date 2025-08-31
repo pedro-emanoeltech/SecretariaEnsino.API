@@ -119,7 +119,7 @@ namespace SecretariaEnsino.API.Controller
             try
             {
                 var filtroBuilder = new AlunoFiltroBuilder(filtro);
-                var query = await _servico.BuscarPorFiltro<AlunoFiltroBuilder>(filtroBuilder);
+                var query = await _servico.BuscarPorFiltroAsync<AlunoFiltroBuilder>(filtroBuilder);
                 var resultado = await ResultadoPaginado<AlunoResposta>.CriarAsync(query, filtro);
 
                 if (resultado.Items == null || !resultado.Items.Any())

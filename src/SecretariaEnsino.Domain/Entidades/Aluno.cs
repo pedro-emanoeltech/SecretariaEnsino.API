@@ -27,15 +27,14 @@ namespace SecretariaEnsino.Domain.Entidades
         /// </summary>
         public string? Telefone { get; set; }
 
+        /// <summary>
+        /// Matrículas associadas a este aluno.
+        /// </summary>
+        public ICollection<Matricula>? Matriculas { get; set; }
 
         /// <summary>
         /// Matrículas associadas a este aluno.
         /// </summary>
-        public ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
-
-        /// <summary>
-        /// Matrículas associadas a este aluno.
-        /// </summary>
-        public Usuario Usuario { get; set; }
+        public Usuario Usuario { get; set; } = new Usuario();
     }
 }

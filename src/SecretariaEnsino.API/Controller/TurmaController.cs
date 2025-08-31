@@ -147,7 +147,7 @@ namespace SecretariaEnsino.API.Controller
             try
             {
                 var filtroBuilder = new TurmaFiltroBuilder(filtro);
-                var query = await _servico.BuscarPorFiltro<TurmaFiltroBuilder>(filtroBuilder);
+                var query = await _servico.BuscarPorFiltroAsync<TurmaFiltroBuilder>(filtroBuilder);
 
                 var resultado = await ResultadoPaginado<TurmaResposta>.CriarAsync(query, filtro);
 

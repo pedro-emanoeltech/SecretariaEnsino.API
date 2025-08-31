@@ -13,7 +13,7 @@ namespace SecretariaEnsino.Infra.Servico
 
         public async Task<Usuario?> ObterUsuarioPorEmailAsync(string email)
         {
-            return await _dbSet.FirstOrDefaultAsync(predicate: x => x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            return await _dbSet.FirstOrDefaultAsync(predicate: x => x.Email.ToLower() == email.ToLower());
         }
     }
 }

@@ -117,7 +117,7 @@ namespace SecretariaEnsino.API.Controller
             try
             {
                 var filtroBuilder = new MatriculaFiltroBuilder(filtro);
-                var query = await _servico.BuscarPorFiltro<MatriculaFiltroBuilder>(filtroBuilder);
+                var query = await _servico.BuscarPorFiltroAsync<MatriculaFiltroBuilder>(filtroBuilder);
                 var resultado = await ResultadoPaginado<MatriculaResposta>.CriarAsync(query, filtro);
 
                 if (resultado.Items == null || !resultado.Items.Any())
