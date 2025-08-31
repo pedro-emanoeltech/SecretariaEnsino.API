@@ -50,7 +50,7 @@ namespace SecretariaEnsino.API.Configuracao
                     }
                 });
 
-                var xmlFile = $"Secretaria_Ensino.xml";
+                var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath, true);
             });

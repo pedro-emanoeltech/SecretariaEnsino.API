@@ -11,7 +11,7 @@ namespace SecretariaEnsino.API.Configuracao
             services.AddDbContext<TContext>(options =>
             {
                 options.UseLoggerFactory(LoggerFactory.Create(build => build.AddConsole()));
-                options.UseSqlServer(configuration.GetConnectionString("ConnectionStrings:BaseSqlServer"),
+                options.UseSqlServer(configuration.GetConnectionString("BaseSqlServer"),
                     sqlOptions =>
                     {
                         sqlOptions.EnableRetryOnFailure(
