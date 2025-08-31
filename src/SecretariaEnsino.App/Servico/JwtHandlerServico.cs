@@ -1,24 +1,32 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using SecretariaEnsino.App.DTO.DtoModelo;
 using SecretariaEnsino.App.Interface;
+using SecretariaEnsino.Domain.Entidades;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace SecretariaEnsino.App.Servico
 {
-    public class JwtHandler : IJwtHandler
+    public class JwtHandlerServico : IJwtHandlerServico
     {
-        public JwtHandler()
+        public JwtHandlerServico()
         {
-                
+
         }
 
-        public async Task<string> GerarTokenAcessoAsync()
+        public async Task<TokenAcesso> GerarTokenAcessoAsync(Usuario usuario)
         {
             var dataExpiracao = DateTime.UtcNow.AddHours(8);
             var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("SecretKey")!));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var listClaim = new List<Claim>();
+
+            var listClaim = new List<Claim>
+            {
+                new(ClaimTypes.NameIdentifier, usuario.Id.ToString()!),
+                new(ClaimTypes.Email, usuario.Email!.ToString()),
+                new(ClaimTypes.Role, usuario.Tipo.ToString())
+            };
 
             var securityToken = new JwtSecurityToken(
                 null,
@@ -28,7 +36,8 @@ namespace SecretariaEnsino.App.Servico
                 dataExpiracao,
                 credentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(securityToken);
+            var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
+            return new TokenAcesso(token, dataExpiracao);
         }
 
         public ClaimsPrincipal ValidateJwtToken(string token)

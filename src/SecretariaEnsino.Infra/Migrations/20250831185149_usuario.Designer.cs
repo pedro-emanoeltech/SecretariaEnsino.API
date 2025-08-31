@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SecretariaEnsino.Infra.Contexto;
 
@@ -11,9 +12,11 @@ using SecretariaEnsino.Infra.Contexto;
 namespace SecretariaEnsino.Infra.Migrations
 {
     [DbContext(typeof(SecretariaEnsinoContexto))]
-    partial class SecretariaEnsinoContextoModelSnapshot : ModelSnapshot
+    [Migration("20250831185149_usuario")]
+    partial class usuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

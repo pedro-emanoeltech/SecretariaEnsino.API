@@ -61,10 +61,8 @@ namespace SecretariaEnsino.Infra.Servico
         {
             try
             {
-                TEntidade? entidade = await BuscarPorId(id);
-                if (entidade is null)
-                    return false;
-
+                TEntidade? entidade = await BuscarPorId(id) ?? throw new NotFoundException("Registro não encontrado");
+      
                 _context.Set<TEntidade>().Remove(entidade);
                 await _context.SaveChangesAsync();
                 return true;
@@ -116,5 +114,9 @@ namespace SecretariaEnsino.Infra.Servico
             }
         }
 
+        public virtual async Task<IQueryable<TEntidade>> Listar()
+        {
+            return _dbSet;
+        }
     }
 }

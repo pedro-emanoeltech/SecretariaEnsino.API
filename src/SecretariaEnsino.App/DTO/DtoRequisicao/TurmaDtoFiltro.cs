@@ -1,18 +1,31 @@
-﻿using SecretariaEnsino.Domain.Abastacao;
-using SecretariaEnsino.Domain.Enum;
+﻿using SecretariaEnsino.Domain.Enum;
 
 namespace SecretariaEnsino.App.DTO.DtoRequisicao
 {
     /// <summary>
-    /// Representa o filtro da turma cadastrada no sistema.
+    /// Representa os filtros opcionais para buscar turmas.
     /// </summary>
-    public class TurmaDtoFiltro : IBaseDto
+    public class TurmaDtoFiltro : BasePaginacaoFiltro
     {
-        public string Nome { get; set; }
+        /// <summary>
+        /// Nome da turma 
+        /// </summary>
+        public string? Nome { get; set; }
 
-        public string Descricao { get; set; }
+        /// <summary>
+        /// Descrição da turma  
+        /// </summary>
+        public string? Descricao { get; set; }
 
-        public StatusTurma Status { get; set; }
+        /// <summary>
+        /// Nome do professor responsável pela turma.
+        /// </summary>
+        public string? Professor { get; set; }
 
+        /// <summary>
+        /// Status atual da turma.
+        /// </summary>
+        public StatusTurma? Status { get; set; }
     }
+
 }

@@ -10,9 +10,6 @@ namespace SecretariaEnsino.Infra.Map
         {
             base.Configure(builder);
  
-            builder.Property(s => s.Nome)
-                   .IsRequired()
-                   .HasMaxLength(150);
 
             builder.Property(s => s.DataNascimento)
                    .IsRequired();
@@ -21,32 +18,17 @@ namespace SecretariaEnsino.Infra.Map
                    .IsRequired()
                    .HasMaxLength(11);
 
-            builder.Property(s => s.Email)
-                   .IsRequired()
-                   .HasMaxLength(150);
-
-            builder.Property(s => s.SenhaHash)
-                   .IsRequired()
-                   .HasMaxLength(500);
-
             builder.Property(s => s.Telefone)
                    .HasMaxLength(20);
 
-            builder.Property(s => s.DataCadastro)
-                   .HasDefaultValueSql("GETUTCDATE()");  
-
-            builder.Property(s => s.Ativo)
-                   .HasDefaultValue(true);
-
-            
             builder.HasIndex(s => s.Cpf).IsUnique();
-            builder.HasIndex(s => s.Email).IsUnique();
-
           
             builder.HasMany(s => s.Matriculas)
                    .WithOne(m => m.Aluno)
                    .HasForeignKey(m => m.AlunoId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(p => p.Usuario).WithOne(e => e.Aluno).HasForeignKey<Aluno>(x => x.UsuarioId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

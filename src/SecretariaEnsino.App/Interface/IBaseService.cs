@@ -13,7 +13,7 @@ namespace SecretariaEnsino.App.Interface
         Task<TDtoResposta> BuscarPorId(Guid id);
         Task<bool> Deletar(Guid id);
         Task<IEnumerable<TDtoResposta>> BuscarTodos();
-        Task<IEnumerable<TDtoResposta>> BuscarPorFiltro<TBuilderFiltro>(IBaseFiltro<TEntidade> builderFiltro = null)
+        Task<IQueryable<TDtoResposta>> BuscarPorFiltro<TBuilderFiltro>(IBaseFiltro<TEntidade> builderFiltro = null)
              where TBuilderFiltro : class, IBaseFiltro<TEntidade>;
 
     }

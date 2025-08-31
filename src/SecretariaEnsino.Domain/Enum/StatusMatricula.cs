@@ -13,7 +13,7 @@ namespace SecretariaEnsino.Domain.Enum
         [Description("Concluída")]
         Concluida,
 
-        [Description("Expirou")]
-        Expirou
+        [Description("Expirada")]
+        Expirada
     }
 }

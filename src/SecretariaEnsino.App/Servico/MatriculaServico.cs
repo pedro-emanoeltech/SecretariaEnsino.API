@@ -8,12 +8,12 @@ using SecretariaEnsino.Infra.Interface;
 
 namespace SecretariaEnsino.App.Servico
 {
-    public class AlunoServico : BaseServico<Aluno, AlunoRequisicao, AlunoResposta>, IAlunoServico
+    public class MatriculaServico : BaseServico<Matricula, MatriculaRequisicao, MatriculaResposta>, IMatriculaServico
     {
-        public AlunoServico(
+        public MatriculaServico(
             IMapper mapper,
-            IAlunoRepositorio repositorio,
-            IValidator<AlunoRequisicao> validator)
+            IMatriculaRepositorio repositorio,
+            IValidator<MatriculaRequisicao> validator)
             : base(repositorio, mapper, validator)
         {
  

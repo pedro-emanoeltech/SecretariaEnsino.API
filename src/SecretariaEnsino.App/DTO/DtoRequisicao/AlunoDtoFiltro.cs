@@ -1,19 +1,29 @@
-﻿using SecretariaEnsino.Domain.Abastacao;
-
-namespace SecretariaEnsino.App.DTO.DtoRequisicao
+﻿namespace SecretariaEnsino.App.DTO.DtoRequisicao
 {
     /// <summary>
-    /// Representa um filtro do aluno cadastrado no sistema.
+    /// Representa os filtros opcionais para buscar alunos.
     /// </summary>
-    public class AlunoDtoFiltro : IBaseDto
+    public class AlunoDtoFiltro : BasePaginacaoFiltro
     {
-        public string Nome { get; set; }
+        /// <summary>
+        /// Nome do aluno
+        /// </summary>
+        public string? Nome { get; set; }
 
-        public string Cpf { get; set; }
+        /// <summary>
+        /// CPF do aluno
+        /// </summary>
+        public string? Cpf { get; set; }
 
-        public string Email { get; set; }
+        /// <summary>
+        /// Email do aluno.
+        /// </summary>
+        public string? Email { get; set; }
 
-        public bool Ativo { get; set; }
-
+        /// <summary>
+        /// Indica se o aluno está ativo.
+        /// </summary>
+        public bool? Ativo { get; set; }
     }
+
 }

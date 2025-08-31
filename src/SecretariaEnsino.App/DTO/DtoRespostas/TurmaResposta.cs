@@ -11,6 +11,7 @@ namespace SecretariaEnsino.App.DTO.DtoRespostas
         public DateTime DataInicio { get; set; }
         public DateTime? DataFim { get; set; }
         public int Capacidade { get; set; }
+        public int TotalAlunosMatriculados { get; set; }
         public string? Professor { get; set; }
         public StatusTurma Status { get; set; }
     }

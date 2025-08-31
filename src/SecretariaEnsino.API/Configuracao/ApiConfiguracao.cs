@@ -16,7 +16,7 @@ namespace SecretariaEnsino.API.Configuracao
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = $"Secretaria Ensino",
+                    Title = $"Secretaria De Ensino",
                     Description = "ASP.NET Core ,REST API, DDD, Princípios SOLID e Clean Architecture",
                     Version = "v1",
                     Contact = new OpenApiContact

@@ -8,9 +8,11 @@ namespace SecretariaEnsino.App.AutoMapper
     {
         public MapperRequisicaoParaDomain()
         {
-            CreateMap<AlunoRequisicao, Aluno>(MemberList.Destination)
-               .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email!.ToLower()));
-
+            CreateMap<AlunoRequisicao, Aluno>(MemberList.Destination);
+            CreateMap<AlunoRequisicao, Usuario>(MemberList.Destination);
+            CreateMap<TurmaRequisicao, Turma>(MemberList.Destination);
+            CreateMap<MatriculaRequisicao, Matricula>(MemberList.Destination);
+ 
         }
 
     }

@@ -4,13 +4,13 @@ using SecretariaEnsino.Domain.Enum;
 
 namespace SecretariaEnsino.App.DTO.DtoRequisicao
 {
-    public class TurmaRequisicao : BaseEntidade
+    public class TurmaRequisicao : IBaseDto
     {
         public string Nome { get; set; }  
-        public string? Descricao { get; set; }
-        public DateTime DataInicio { get; set; }
+        public string Descricao { get; set; }
+        public DateTime? DataInicio { get; set; }
         public DateTime? DataFim { get; set; }
-        public int Capacidade { get; set; }
+        public int? Capacidade { get; set; }
         public string? Professor { get; set; }
         public StatusTurma Status { get; set; }
 
@@ -18,11 +18,13 @@ namespace SecretariaEnsino.App.DTO.DtoRequisicao
         {
             public TurmaRequisicaoValidator()
             {
-                RuleFor(banco => banco.Nome)
-                    .NotNull().NotEmpty().WithMessage("É obrigatório informar Id do Aluno.");
+                RuleFor(x => x.Nome)
+                    .NotEmpty().WithMessage("É obrigatório informar o Nome da turma")
+                    .MinimumLength(3).WithMessage("O Nome da turma deve ter pelo menos 3 caracteres");
 
-                RuleFor(banco => banco.DataInicio)
-                    .NotNull().NotEmpty().WithMessage("É obrigatório informar Id da Turma.");
+                RuleFor(x => x.Descricao)
+                    .MinimumLength(3).When(x => !string.IsNullOrEmpty(x.Descricao))
+                    .WithMessage("A Descrição da turma deve ter pelo menos 3 caracteres");
 
             }
         }

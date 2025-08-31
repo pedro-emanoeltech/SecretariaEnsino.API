@@ -8,9 +8,9 @@ namespace SecretariaEnsino.Domain.Entidades
     public class Aluno : BaseEntidade
     {
         /// <summary>
-        /// Nome completo do aluno.
+        /// Id do Usuario.
         /// </summary>
-        public string Nome { get; set; }
+        public Guid UsuarioId { get; set; }
 
         /// <summary>
         /// Data de nascimento do aluno.
@@ -18,38 +18,24 @@ namespace SecretariaEnsino.Domain.Entidades
         public DateTime DataNascimento { get; set; }
 
         /// <summary>
-        /// CPF do aluno (11 dígitos).
+        /// CPF do aluno (11 dígitos)
         /// </summary>
         public string Cpf { get; set; }
-
-        /// <summary>
-        /// Endereço de e-mail do aluno.
-        /// </summary>
-        public string Email { get; set; }
-
-        /// <summary>
-        /// Senha criptografada do aluno.
-        /// </summary>
-        public string SenhaHash { get; set; }
 
         /// <summary>
         /// Telefone ou celular do aluno.
         /// </summary>
         public string? Telefone { get; set; }
 
-        /// <summary>
-        /// Data em que o aluno foi cadastrado no sistema.
-        /// </summary>
-        public DateTime DataCadastro { get; set; }  
-
-        /// <summary>
-        /// Indica se o aluno está ativo ou inativo.
-        /// </summary>
-        public bool Ativo { get; set; }  
 
         /// <summary>
         /// Matrículas associadas a este aluno.
         /// </summary>
         public ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
+
+        /// <summary>
+        /// Matrículas associadas a este aluno.
+        /// </summary>
+        public Usuario Usuario { get; set; }
     }
 }
