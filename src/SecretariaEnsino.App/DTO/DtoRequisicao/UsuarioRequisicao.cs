@@ -17,12 +17,7 @@ namespace SecretariaEnsino.App.DTO.DtoRequisicao
                 RuleFor(x => x.Tipo)
                     .NotNull()
                     .WithMessage("É obrigatório informar Tipo de Usuario");
-
-
-                RuleFor(x => x.Tipo)
-                    .Must(tipo => tipo != TipoUsuario.Aluno)
-                    .WithMessage("Tipo Aluno não permitido por essa rota");
-
+  
             }
         }
     }

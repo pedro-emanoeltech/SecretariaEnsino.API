@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SecretariaEnsino.App.DTO.DtoRequisicao;
 using SecretariaEnsino.App.DTO.DtoRespostas;
 using SecretariaEnsino.App.Interface;
 using SecretariaEnsino.Domain.Entidades;
-using Swashbuckle.AspNetCore.Annotations;
 
 
 namespace SecretariaEnsino.API.Controller
 {
     public class UsuarioController : BaseCRUDController<Usuario, UsuarioRequisicao, UsuarioResposta>
     {
-
+        private readonly IUsuarioServico _servico;
         public UsuarioController(IUsuarioServico servico, ILogger<UsuarioController> logger) : base(servico, logger)
         {
+            _servico = servico;
         }
 
         #region CRUD
@@ -55,7 +54,15 @@ namespace SecretariaEnsino.API.Controller
         [HttpPost]
         public override async Task<ActionResult<UsuarioResposta>> Adicionar([FromBody] UsuarioRequisicao usuarioRequisicao)
         {
-            return await base.Adicionar(usuarioRequisicao);
+            try
+            {
+                return await _servico.AdicionarUsuarioAsync(usuarioRequisicao);
+            }
+            catch (Exception ex)
+            {
+                return ValidaException(ex);
+            }
+
         }
 
         /// <summary>

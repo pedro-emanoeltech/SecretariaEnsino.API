@@ -61,8 +61,8 @@ namespace SecretariaEnsino.Infra.Servico
         {
             try
             {
-                TEntidade? entidade = await BuscarPorIdAsync(id) ?? throw new NotFoundException("Registro não encontrado");
-      
+                TEntidade? entidade = BuscarPorId(id).FirstOrDefault() ?? throw new NotFoundException("Registro não encontrado");
+
                 _context.Set<TEntidade>().Remove(entidade);
                 await _context.SaveChangesAsync();
                 return true;
@@ -74,14 +74,14 @@ namespace SecretariaEnsino.Infra.Servico
             }
         }
 
-        public virtual async Task<TEntidade?> BuscarPorIdAsync(Guid id)
+        public virtual IQueryable<TEntidade> BuscarPorId(Guid id)
         {
             try
             {
                 if (id == Guid.Empty)
                     throw new Exception("Id invalido");
 
-                return await _dbSet.FindAsync(id);
+                return _dbSet.Where(e => e.Id == id);
             }
             catch (Exception e)
             {
@@ -113,6 +113,6 @@ namespace SecretariaEnsino.Infra.Servico
                 throw new Exception(e.Message);
             }
         }
-  
+
     }
 }

@@ -26,30 +26,28 @@ namespace SecretariaEnsino.App.Servico
             _usuarioServico = usuarioServico;
         }
 
-        protected override async Task AntesDeAdicionarAsync(Aluno aluno)
+        public override async Task AntesDeAdicionarAsync(Aluno aluno)
         {
             await ValidarCpfExistenteAsync(aluno.Cpf);
-
-            var usuarioDto = new UsuarioRequisicao
-            {
-                Nome = aluno.Usuario.Nome,
-                Email = aluno.Usuario.Email,
-                Senha = aluno.Usuario.Senha,
-                Tipo = TipoUsuario.Aluno,
-                Ativo = true
-            };
-
-            var usuarioCriado = await _usuarioServico.AdicionarAsync(usuarioDto);
-            aluno.UsuarioId = usuarioCriado.Id;
+            await _usuarioServico.AntesDeAdicionarAsync(aluno.Usuario);
+            aluno.Usuario.Tipo = TipoUsuario.Aluno;
+            aluno.Usuario.Ativo = true;
         }
 
-        public async Task ValidarCpfExistenteAsync(string cpf)
+        public override async Task AntesDeAtualizarAsync(Guid id, Aluno aluno)
+        {
+            await ValidarCpfExistenteAsync(aluno.Cpf, id);
+            await _usuarioServico.AntesDeAtualizarAsync(aluno.Usuario.Id!.Value, aluno.Usuario);
+            aluno.Usuario.Tipo = TipoUsuario.Aluno;
+        }
+
+        public async Task ValidarCpfExistenteAsync(string cpf, Guid? excetoId = null)
         {
             var existe = await _repositorio.BuscarTodosPorFiltroAsync(
                 u => u.Cpf.ToLower() == cpf.ToLower()
             );
 
-            if (existe.Any())
+            if (existe.Any(u => excetoId == null || u.Id != excetoId))
                 throw new RegraNegocioException("O CPF fornecido já está em uso.");
         }
 

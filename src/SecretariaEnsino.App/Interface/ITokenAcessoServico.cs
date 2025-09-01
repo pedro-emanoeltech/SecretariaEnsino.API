@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace SecretariaEnsino.App.Interface
 {
-    public interface IJwtHandlerServico
+    public interface ITokenAcessoServico
     {
         Task<TokenAcesso> GerarTokenAcessoAsync(Usuario usuario);
         ClaimsPrincipal ValidateJwtToken(string token);

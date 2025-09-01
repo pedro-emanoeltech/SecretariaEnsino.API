@@ -5,6 +5,6 @@ namespace SecretariaEnsino.App.Interface
 {
     public interface IAutenticacaoServico
     {
-        Task<LoginResposta> Login(LoginRequisicao loginRequisicao);
+        Task<LoginResposta> LoginAsync(LoginRequisicao loginRequisicao);
     }
 }

@@ -12,6 +12,9 @@ namespace SecretariaEnsino.App.Interface
         Task<TDtoResposta> AtualizarAsync(Guid id, TDtoRequisicao dtoRequisicao);
         Task<TDtoResposta> BuscarPorIdAsync(Guid id);
         Task<bool> Deletar(Guid id);
+        Task AntesDeAdicionarAsync(TEntidade entidade);
+        Task AntesDeAtualizarAsync(Guid id, TEntidade entidade);
+
         Task<IEnumerable<TDtoResposta>> BuscarTodosAsync();
         Task<IQueryable<TDtoResposta>> BuscarPorFiltroAsync<TBuilderFiltro>(IBaseFiltro<TEntidade> builderFiltro = null)
              where TBuilderFiltro : class, IBaseFiltro<TEntidade>;

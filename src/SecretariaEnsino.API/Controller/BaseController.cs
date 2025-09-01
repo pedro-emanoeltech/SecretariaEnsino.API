@@ -27,8 +27,11 @@ namespace SecretariaEnsino.API.Controller
                 case NotFoundException notFound:
                     return NotFound(notFound.Message);
 
+                case RegraNegocioException regra:
+                    return BadRequest(regra.Message);
+
                 case ValidationException validation:
-                    return BadRequest(validation.Errors.Select(e => e.ErrorMessage));
+                    return BadRequest(validation.Message);
 
                 case UnauthorizedAccessException unauthorized:
                     return Unauthorized(unauthorized.Message);

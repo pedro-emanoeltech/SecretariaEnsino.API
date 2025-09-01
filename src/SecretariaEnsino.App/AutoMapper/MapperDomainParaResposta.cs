@@ -13,6 +13,7 @@ namespace SecretariaEnsino.App.AutoMapper
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Usuario.Email))
                 .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.Usuario.Nome))
                 .ForMember(dest => dest.Ativo, opt => opt.MapFrom(src => src.Usuario.Ativo))
+                .ForMember(dest => dest.DataCadastro, opt => opt.MapFrom(src => src.Usuario.DataCadastro))
                 .IgnoreAllPropertiesWithAnInaccessibleSetter();
 
             CreateMap<Usuario, UsuarioResposta>(MemberList.Destination);

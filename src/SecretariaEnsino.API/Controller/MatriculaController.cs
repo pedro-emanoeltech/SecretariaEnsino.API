@@ -70,23 +70,7 @@ namespace SecretariaEnsino.API.Controller
         {
             return await base.BuscarPorId(id);
         }
-
-        /// <summary>
-        /// Atualiza os dados de uma matrícula existente.
-        /// </summary>
-        /// <param name="id">Identificador da matrícula a ser atualizada.</param>
-        /// <param name="requisicao">Objeto contendo os novos dados da matrícula.</param>
-        /// <returns>Retorna a matrícula atualizada.</returns> 
-        /// <response code="200">Matrícula atualizada com sucesso.</response>
-        /// <response code="400">Modelo de dados inválido.</response>
-        /// <response code="404">Matrícula não encontrada.</response>
-        /// <response code="500">Erro interno ao processar a solicitação.</response>
-        [HttpPut("{id}")]
-        public override async Task<ActionResult<MatriculaResposta>> Atualizar(string id, [FromBody] MatriculaRequisicao requisicao)
-        {
-            return await base.Atualizar(id, requisicao);
-        }
-
+ 
         /// <summary>
         /// Remove uma matrícula pelo seu identificador.
         /// </summary>
@@ -119,9 +103,6 @@ namespace SecretariaEnsino.API.Controller
                 var filtroBuilder = new MatriculaFiltroBuilder(filtro);
                 var query = await _servico.BuscarPorFiltroAsync<MatriculaFiltroBuilder>(filtroBuilder);
                 var resultado = await ResultadoPaginado<MatriculaResposta>.CriarAsync(query, filtro);
-
-                if (resultado.Items == null || !resultado.Items.Any())
-                    return NotFound("Nenhum aluno encontrado.");
 
                 return Ok(resultado);
             }

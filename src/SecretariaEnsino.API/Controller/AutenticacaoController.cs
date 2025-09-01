@@ -56,7 +56,7 @@ namespace SecretariaEnsino.API.Controller
 
             try
             {
-                var resposta = await _servico.Login(loginRequisicao);
+                var resposta = await _servico.LoginAsync(loginRequisicao);
                 return Ok(resposta);
             }
             catch (Exception ex)

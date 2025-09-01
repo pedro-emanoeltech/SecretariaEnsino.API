@@ -12,14 +12,14 @@ namespace SecretariaEnsino.App.Servico
     {
         private readonly IMapper _mapper;
         private readonly IUsuarioRepositorio _repositorio;
-        private readonly IJwtHandlerServico _jwtHandlerServico;
+        private readonly ITokenAcessoServico _jwtHandlerServico;
         private readonly IValidator<LoginRequisicao> _validatorLogin;
         private readonly string _mensagemPadraoLoginInvalido = "Email e/ou senha inválidos";
 
         public AutenticacaoServico(
             IMapper mapper,
             IUsuarioRepositorio repositorio,
-            IJwtHandlerServico jwtHandlerServico,
+            ITokenAcessoServico jwtHandlerServico,
             IValidator<LoginRequisicao> validator)
         {
             _mapper = mapper;
@@ -28,7 +28,7 @@ namespace SecretariaEnsino.App.Servico
             _jwtHandlerServico = jwtHandlerServico;
         }
 
-        public async Task<LoginResposta> Login(LoginRequisicao loginRequisicao)
+        public async Task<LoginResposta> LoginAsync(LoginRequisicao loginRequisicao)
         {
             var validationResult = _validatorLogin.Validate(loginRequisicao);
             if (!validationResult.IsValid)

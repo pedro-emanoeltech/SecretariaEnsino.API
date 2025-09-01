@@ -6,6 +6,6 @@ namespace SecretariaEnsino.App.Interface
 {
     public interface IUsuarioServico : IBaseService<Usuario, UsuarioRequisicao, UsuarioResposta>
     {
-        Task ValidarEmailExistenteAsync(string email);
+        Task<UsuarioResposta> AdicionarUsuarioAsync(UsuarioRequisicao dtoRequisicao);
     }
 }

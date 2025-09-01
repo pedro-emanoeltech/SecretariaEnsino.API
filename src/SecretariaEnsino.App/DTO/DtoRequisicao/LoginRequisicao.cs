@@ -17,8 +17,9 @@ namespace SecretariaEnsino.App.DTO.DtoRequisicao
         {
             public LoginRequisicaoValidator()
             {
-                RuleFor(banco => banco.Email)
-                    .NotNull().NotEmpty().WithMessage("É obrigatório informar Email do usuario");
+                RuleFor(x => x.Email)
+                       .NotEmpty().WithMessage("É obrigatório informar o email")
+                       .EmailAddress().WithMessage("Email inválido");
 
                 RuleFor(banco => banco.Senha)
                     .NotNull().NotEmpty().WithMessage("É obrigatório informar senha do usuario.");

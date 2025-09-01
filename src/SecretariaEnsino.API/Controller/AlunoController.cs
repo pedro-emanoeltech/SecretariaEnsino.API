@@ -121,10 +121,7 @@ namespace SecretariaEnsino.API.Controller
                 var filtroBuilder = new AlunoFiltroBuilder(filtro);
                 var query = await _servico.BuscarPorFiltroAsync<AlunoFiltroBuilder>(filtroBuilder);
                 var resultado = await ResultadoPaginado<AlunoResposta>.CriarAsync(query, filtro);
-
-                if (resultado.Items == null || !resultado.Items.Any())
-                    return NotFound("Nenhum aluno encontrado.");
-
+ 
                 return Ok(resultado);
             }
             catch (Exception ex)

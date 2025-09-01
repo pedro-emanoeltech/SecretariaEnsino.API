@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using SecretariaEnsino.App.Filtro;
 using SecretariaEnsino.App.Interface;
 using SecretariaEnsino.Domain.Abastacao;
@@ -28,13 +29,13 @@ namespace SecretariaEnsino.App.Servico
         /// metodo call antes de Adicionar aplicar validação ou modificação na entidade.
         /// </summary>
         /// <param name="entidade"></param>
-        protected virtual async Task AntesDeAdicionarAsync(TEntidade entidade) => await Task.CompletedTask;
+        public virtual async Task AntesDeAdicionarAsync(TEntidade entidade) => await Task.CompletedTask;
 
         /// <summary>
         /// metodo call antes de Atualizar aplicar validação ou modificação na entidade.
         /// </summary>
         /// <param name="entidade"></param>
-        protected virtual async Task AntesDeAtualizarAsync(Guid id, TEntidade entidade) => await Task.CompletedTask;
+        public virtual async Task AntesDeAtualizarAsync(Guid id, TEntidade entidade) => await Task.CompletedTask;
 
         public virtual async Task<TDtoResposta> AdicionarAsync(TDtoRequisicao dtoRequisicao)
         {
@@ -56,8 +57,9 @@ namespace SecretariaEnsino.App.Servico
             if (!resultadoValidacao.IsValid)
                 throw new ValidationException(string.Join("; ", resultadoValidacao.Errors.Select(e => e.ErrorMessage)));
 
-            var entidade = await _repositorio.BuscarPorIdAsync(id) ?? throw new NotFoundException("Registro não encontrado");
-
+            var entidade = await _repositorio.BuscarPorId(id).FirstOrDefaultAsync()
+                      ?? throw new NotFoundException("Registro não encontrado");
+ 
             _mapper.Map(dtoRequisicao, entidade);
 
             await AntesDeAtualizarAsync(id, entidade);
@@ -68,8 +70,10 @@ namespace SecretariaEnsino.App.Servico
 
         public virtual async Task<TDtoResposta> BuscarPorIdAsync(Guid id)
         {
-            var entidade = await _repositorio.BuscarPorIdAsync(id) ?? throw new NotFoundException("Registro não encontrado");
-            return _mapper.Map<TDtoResposta>(entidade);
+            var query = _repositorio.BuscarPorId(id);
+
+            return await _mapper.ProjectTo<TDtoResposta>(query).FirstOrDefaultAsync()
+                        ?? throw new NotFoundException("Registro não encontrado");
         }
 
         public virtual async Task<bool> Deletar(Guid id)

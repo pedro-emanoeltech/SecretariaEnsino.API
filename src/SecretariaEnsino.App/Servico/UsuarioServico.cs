@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using SecretariaEnsino.App.DTO.DtoRequisicao;
 using SecretariaEnsino.App.DTO.DtoRespostas;
 using SecretariaEnsino.App.Interface;
 using SecretariaEnsino.Domain.Abastacao;
 using SecretariaEnsino.Domain.Entidades;
+using SecretariaEnsino.Domain.Enum;
 using SecretariaEnsino.Infra.Interface;
 using System.ComponentModel.DataAnnotations;
 
@@ -22,13 +24,48 @@ namespace SecretariaEnsino.App.Servico
             _repositorio = repositorio;
         }
 
-        protected override async Task AntesDeAdicionarAsync(Usuario usuario)
+        public async Task<UsuarioResposta> AdicionarUsuarioAsync(UsuarioRequisicao dtoRequisicao)
+        {
+            ValidarTipoUsuario(dtoRequisicao.Tipo);
+            return await base.AdicionarAsync(dtoRequisicao);
+        }
+
+        public override async Task AntesDeAdicionarAsync(Usuario usuario)
         {
             SenhaValida(usuario.Senha);
             EmailValido(usuario.Email);
             await ValidarEmailExistenteAsync(usuario.Email);
 
             usuario.CriptografarSenha();
+            usuario.SetarDataCadastro();
+            usuario.Ativo = true;
+        }
+
+        public override async Task AntesDeAtualizarAsync(Guid id, Usuario usuario)
+        {
+            SenhaValida(usuario.Senha);
+            EmailValido(usuario.Email);
+            await ValidarEmailExistenteAsync(usuario.Email, id);
+
+            usuario.CriptografarSenha();
+        }
+
+        public override async Task<bool> Deletar(Guid id)
+        {
+            var usuario = await _repositorio.BuscarPorId(id).FirstOrDefaultAsync() 
+                                ?? throw new NotFoundException("Registro não encontrado");
+            ValidarTipoUsuario(usuario!.Tipo);
+
+            await _repositorio.DeletarAsync(id);
+            return true;
+        }
+
+        private void ValidarTipoUsuario(TipoUsuario tipo)
+        {
+            var tiposNaoPermitidos = new[] { TipoUsuario.Aluno };
+
+            if (tiposNaoPermitidos.Contains(tipo))
+                throw new RegraNegocioException($"O tipo de usuário '{tipo}' não é permitido nesta rota.");
         }
 
         private void SenhaValida(string senha)
@@ -49,12 +86,12 @@ namespace SecretariaEnsino.App.Servico
             }
         }
 
-        public async Task ValidarEmailExistenteAsync(string email)
+        private async Task ValidarEmailExistenteAsync(string email, Guid? excetoId = null)
         {
             var existe = await _repositorio.BuscarTodosPorFiltroAsync(
-                  u => u.Email.ToLower() == email.ToLower());
+                u => u.Email.ToLower() == email.ToLower());
 
-            if (existe.Any())
+            if (existe.Any(u => excetoId == null || u.Id != excetoId))
                 throw new RegraNegocioException("O email fornecido já está em uso.");
         }
     }

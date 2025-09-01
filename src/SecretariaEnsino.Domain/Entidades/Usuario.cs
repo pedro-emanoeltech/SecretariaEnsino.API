@@ -36,7 +36,7 @@ namespace SecretariaEnsino.Domain.Entidades
         /// <summary>
         /// Data em que o usuario foi cadastrado no sistema.
         /// </summary>
-        public DateTime DataCadastro { get; set; } = DateTime.UtcNow;
+        public DateTime DataCadastro { get; set; }
 
 
         /// <summary>
@@ -49,6 +49,11 @@ namespace SecretariaEnsino.Domain.Entidades
         public void CriptografarSenha()
         {
             Senha = BCrypt.Net.BCrypt.HashPassword(Senha);
+        }
+
+        public void SetarDataCadastro()
+        {
+            DataCadastro = DateTime.Now;
         }
     }
 }

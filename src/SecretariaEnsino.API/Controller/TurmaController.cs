@@ -151,9 +151,6 @@ namespace SecretariaEnsino.API.Controller
 
                 var resultado = await ResultadoPaginado<TurmaResposta>.CriarAsync(query, filtro);
 
-                if (resultado.Items == null || !resultado.Items.Any())
-                    return NotFound("Nenhum aluno encontrado.");
-
                 return Ok(resultado);
             }
             catch (Exception ex)

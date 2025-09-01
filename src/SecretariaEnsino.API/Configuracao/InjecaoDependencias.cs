@@ -23,7 +23,7 @@ namespace SecretariaEnsino.API.Configuracao
             services.AddScoped<IUsuarioRepositorio,UsuarioRepositorio>();
              
             //serviços
-            services.AddScoped<IJwtHandlerServico, JwtHandlerServico>();
+            services.AddScoped<ITokenAcessoServico, TokenAcessoServico>();
             services.AddScoped<IAlunoServico, AlunoServico>();
             services.AddScoped<IMatriculaServico, MatriculaServico>();
             services.AddScoped<ITurmaServico, TurmaServico>();
