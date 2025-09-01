@@ -1,7 +1,5 @@
 # Secretaria de Ensino API
 
-# Secretaria de Ensino API
-
 API desenvolvida representando um sistema interno de **Secretaria de Ensino** para controle de alunos, turmas e matrículas.  
 
 ## 🚀 Tecnologias Utilizadas
